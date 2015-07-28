@@ -5,8 +5,7 @@ $.ajax({
   type: 'GET',
   url: 'http://api.ekispert.jp/v1/json/station',
   data: {
-  key: '講義内でお伝えします',
-  name: '高円寺'
+  key: '講義内でお伝えします'
   },
   dataType: 'json',
 })

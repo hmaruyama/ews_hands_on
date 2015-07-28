@@ -3,7 +3,7 @@ $.ajax({
   url: 'http://api.ekispert.jp/v1/json/station',
   data: {
   key: '講義内でお伝えします',
-  name: '高円寺'
+  name: '中野'
   },
   dataType: 'json',
 })

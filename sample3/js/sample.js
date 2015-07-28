@@ -1,48 +1,31 @@
 // 以下のリクエストを送信する
-// http://api.ekispert.jp/v1/json/search/course/extreme?key=◯◯&viaList=高円寺:池袋
+// http://api.ekispert.jp/v1/json/station?key=◯◯&name=高円寺
 
 $.ajax({
   type: 'GET',
-  url: 'http://api.ekispert.jp/v1/json/search/course/extreme',
+  url: 'http://api.ekispert.jp/v1/json/station',
   data: {
   key: '講義内でお伝えします',
-  viaList: '高円寺:池袋'
+  name: '高円寺'
   },
   dataType: 'json',
 })
 // 正常レスポンスの場合、こちらのフローに流れる
 .done(function(data) {
 
+  // サイト上にレスポンスの中身を表示させる
   $(function(){
-    var stations = [];
-    var lines = [];
-    var line, station;
-    // レスポンスの一番目の経路を使用する
-    var route = data.ResultSet.Course[0].Route;
+    // ResultSet要素の中のPoint要素の一番目の中のStation要素の中身を全部取ってくる
+    var type = data.ResultSet.Point[0].Station.Type;
+    var name = data.ResultSet.Point[0].Station.Name;
+    var code = data.ResultSet.Point[0].Station.code;
+    var yomi = data.ResultSet.Point[0].Station.Yomi;
 
-    // 一番目の駅名を取ってくる
-    stations[0] = route.Point[0].Station.Name;
-
-    // 一番目の駅名を表示する
-    station = $('<p>' + stations[0] + '</p>');
-    $("#course").append(station);
-
-    // 駅名の数だけ、繰り返し処理を行う
-    for(var i = 0; i < route.Point.length - 1; i++) {
-      // 二番目以降の駅名を取ってくる
-      stations[i + 1] = route.Point[i + 1].Station.Name;
-      if (route.Line instanceof Array) {
-        // 路線名を取ってくる
-        lines[i] = route.Line[i].Name;
-      } else {
-        lines[i] = route.Line.Name;
-      }
-      // 一番目以降の路線名と、二番目以降の駅名を交互に表示する
-      line = $('<p>↓ ' + lines[i] + '</p>');
-      station = $('<p>' + stations[i + 1] + '</p>');
-      $("#course").append(line);
-      $("#course").append(station);
-    }
+    // ページに表示する
+    $("#show_type").text('種別：' + type);
+    $("#show_name").text('駅名：' + name);
+    $("#show_code").text('コード：' + code);
+    $("#show_yomi").text('よみ：' + yomi);
   });
 
   // 開発ツールのコンソール上にレスポンス内容を表示する

@@ -33,7 +33,7 @@ $.ajax({
         type: 'GET',
         url: 'http://api.ekispert.jp/v1/json/course/station',
         data: {
-          key: 'wC4SR9ETBhBcJ3Bv',
+          key: '講義内でお伝えします',
           sectionIndex: i + 1,
           serializeData: data.ResultSet.Course[0].SerializeData
         },
